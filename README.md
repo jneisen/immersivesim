@@ -5,6 +5,7 @@
 # figure out how to actually have textures on meshes (see sword model)
 # highlight (?) objects that you are facing/close enough (raycasting)
 # inventory system (even just a list right now)
+# use sword (equip it)
 # interacting with objects
 	# pickup into inventory
 	# pickup in world

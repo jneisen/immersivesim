@@ -54,6 +54,10 @@ func _physics_process(_delta: float) -> void:
 	rotation = Vector3(0, -look_dir.x, 0)
 	camera.rotation = Vector3(-look_dir.y, 0, 0)
 	move_and_slide()
+	for i in get_slide_collision_count():
+		var c = get_slide_collision(i)
+		if c.get_collider().get_collision_layer_value(2):
+			c.get_collider().apply_central_impulse(-c.get_normal()*1)
 
 func basicMovement():
 	var airCoefficient = 1

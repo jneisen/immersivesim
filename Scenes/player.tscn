@@ -10,6 +10,7 @@
 [node name="Player" type="Node3D"]
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera", "lookRay", "playerUI")]
+collision_mask = 3
 script = ExtResource("1_v0iea")
 camera = NodePath("Camera3D")
 lookRay = NodePath("RayCast3D")
