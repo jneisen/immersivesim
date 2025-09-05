@@ -51,8 +51,8 @@ interact={
 
 [layer_names]
 
-3d_physics/layer_2="Object Layer"
-3d_physics/layer_3="Target Layer"
+3d_physics/layer_2="Interactables"
+3d_physics/layer_3="Object Layer"
 
 [rendering]
 

@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmtin1einpkqv"]
+[gd_scene load_steps=8 format=3 uid="uid://bmtin1einpkqv"]
 
 [ext_resource type="Script" uid="uid://r8du7y6qsl5c" path="res://Scripts/player_controller.gd" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://c65r6l1xq3b34" path="res://Scenes/playerUI.tscn" id="2_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://cd16chitavl8i" path="res://Textures/objectHighlight.png" id="3_6t5aa"]
+[ext_resource type="Script" uid="uid://fldljugb1b8k" path="res://Scripts/objectHighlighter.gd" id="4_vgqql"]
+[ext_resource type="Script" uid="uid://b2kxrj20e1f3q" path="res://Scripts/inventory.gd" id="5_fkybt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvnsp"]
 
@@ -9,12 +12,14 @@
 
 [node name="Player" type="Node3D"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera", "lookRay", "playerUI")]
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera", "lookRay", "playerUI", "objectHighlighter", "inventory")]
 collision_mask = 3
 script = ExtResource("1_v0iea")
 camera = NodePath("Camera3D")
 lookRay = NodePath("RayCast3D")
 playerUI = NodePath("../PlayerUi")
+objectHighlighter = NodePath("../ObjectHighlighter")
+inventory = NodePath("../Inventory")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CapsuleShape3D_cvnsp")
@@ -28,6 +33,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
 [node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
 target_position = Vector3(0, 0, -5)
-collision_mask = 6
+collision_mask = 7
 
 [node name="PlayerUi" parent="." instance=ExtResource("2_cvnsp")]
+
+[node name="ObjectHighlighter" type="Sprite3D" parent="." node_paths=PackedStringArray("camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+visible = false
+texture = ExtResource("3_6t5aa")
+script = ExtResource("4_vgqql")
+camera = NodePath("../CharacterBody3D/Camera3D")
+
+[node name="Inventory" type="Node3D" parent="." node_paths=PackedStringArray("playerUI")]
+script = ExtResource("5_fkybt")
+playerUI = NodePath("../PlayerUi")

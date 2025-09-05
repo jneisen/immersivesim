@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
-@export_range(10, 50, 1) var speed : float = 10
-@export_range(0, 1, 0.1) var friction : float = 0.8
-@export_range(0, 1, 0.01) var airFriction : float = 0.98
+@export_range(5, 20, 1) var speed : float = 10
+var friction : float = 0.8
+var airFriction : float = 0.98
 @export_range(0, 1, 0.05) var airAccelerationFraction : float = 0.1
 @export_range(0, 10, 0.1) var acceleration : float = 1.5
 @export_range(5, 20, 1) var jump : float = 10
@@ -11,6 +11,8 @@ extends CharacterBody3D
 @export var lookRay : RayCast3D
 
 @export var playerUI : Control
+@export var objectHighlighter : Sprite3D
+@export var inventory : Node3D
 
 const SQRTOFTWO = 1.4142
 
@@ -96,12 +98,17 @@ func basicMovement():
 func handleRaycast():
 	lookRay.rotation = Vector3(-look_dir.y, 0, 0)
 	var collision = lookRay.get_collider()
-	if(collision):
-		# allow interact to interact with the object
+	if(collision == null):
+		objectHighlighter.hide()
+		return
+	if(collision.collision_layer & 2 > 0):
+		# highlight
+		objectHighlighter.unhide()
+		objectHighlighter.move(camera.global_position, collision.global_position)
 		if(Input.is_action_pressed("interact")):
 			# value is null unless an object was picked up
 			var value = collision.interact()
 			if(value):
-				# add to INVENTORY which will then change the UI
-				# but right now just ui
-				playerUI.changeHotbarSlot(value, 1)
+				inventory.addItem(collision.get_name())
+		return
+	objectHighlighter.hide()
