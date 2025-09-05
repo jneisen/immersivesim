@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmtin1einpkqv"]
+
+[ext_resource type="Script" uid="uid://r8du7y6qsl5c" path="res://Scripts/player_controller.gd" id="1_v0iea"]
+[ext_resource type="PackedScene" uid="uid://c65r6l1xq3b34" path="res://Scenes/playerUI.tscn" id="2_cvnsp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvnsp"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6t5aa"]
+
+[node name="Player" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera", "lookRay", "playerUI")]
+script = ExtResource("1_v0iea")
+camera = NodePath("Camera3D")
+lookRay = NodePath("RayCast3D")
+playerUI = NodePath("../PlayerUi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_cvnsp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("CapsuleMesh_6t5aa")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+target_position = Vector3(0, 0, -5)
+collision_mask = 6
+
+[node name="PlayerUi" parent="." instance=ExtResource("2_cvnsp")]
