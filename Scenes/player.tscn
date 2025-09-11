@@ -1,18 +1,55 @@
-[gd_scene load_steps=8 format=3 uid="uid://bmtin1einpkqv"]
+[gd_scene load_steps=12 format=3 uid="uid://bmtin1einpkqv"]
 
 [ext_resource type="Script" uid="uid://r8du7y6qsl5c" path="res://Scripts/player_controller.gd" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://c65r6l1xq3b34" path="res://Scenes/playerUI.tscn" id="2_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://cd16chitavl8i" path="res://Textures/objectHighlight.png" id="3_6t5aa"]
 [ext_resource type="Script" uid="uid://fldljugb1b8k" path="res://Scripts/objectHighlighter.gd" id="4_vgqql"]
 [ext_resource type="Script" uid="uid://b2kxrj20e1f3q" path="res://Scripts/inventory.gd" id="5_fkybt"]
+[ext_resource type="Script" uid="uid://cdkk7f7wu4idk" path="res://Scripts/held_object_behavior.gd" id="6_x3wgy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvnsp"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_6t5aa"]
 
+[sub_resource type="Animation" id="Animation_x3wgy"]
+resource_name = "melee_weapon_swing"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.349066, 1.5708, 0), Vector3(0.349066, 1.5708, -1.5708), Vector3(0.349066, 1.5708, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3smsa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.349066, 1.5708, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3smsa"]
+_data = {
+&"RESET": SubResource("Animation_3smsa"),
+&"melee_weapon_swing": SubResource("Animation_x3wgy")
+}
+
 [node name="Player" type="Node3D"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera", "lookRay", "playerUI", "objectHighlighter", "inventory")]
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera", "lookRay", "playerUI", "objectHighlighter", "inventory", "playerHand")]
 collision_mask = 3
 script = ExtResource("1_v0iea")
 camera = NodePath("Camera3D")
@@ -20,6 +57,7 @@ lookRay = NodePath("RayCast3D")
 playerUI = NodePath("../PlayerUi")
 objectHighlighter = NodePath("../ObjectHighlighter")
 inventory = NodePath("../Inventory")
+playerHand = NodePath("Hand")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CapsuleShape3D_cvnsp")
@@ -35,6 +73,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
 target_position = Vector3(0, 0, -5)
 collision_mask = 7
 
+[node name="Hand" type="Node3D" parent="CharacterBody3D" node_paths=PackedStringArray("animationPlayer")]
+transform = Transform3D(-4.37114e-08, 0.34202, 0.939693, 0, 0.939693, -0.34202, -1, -1.49502e-08, -4.10753e-08, 0.5, 0, -0.8)
+script = ExtResource("6_x3wgy")
+animationPlayer = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody3D/Hand"]
+libraries = {
+&"": SubResource("AnimationLibrary_3smsa")
+}
+
 [node name="PlayerUi" parent="." instance=ExtResource("2_cvnsp")]
 
 [node name="ObjectHighlighter" type="Sprite3D" parent="." node_paths=PackedStringArray("camera")]
@@ -44,6 +92,7 @@ texture = ExtResource("3_6t5aa")
 script = ExtResource("4_vgqql")
 camera = NodePath("../CharacterBody3D/Camera3D")
 
-[node name="Inventory" type="Node3D" parent="." node_paths=PackedStringArray("playerUI")]
+[node name="Inventory" type="Node3D" parent="." node_paths=PackedStringArray("playerUI", "playerHand")]
 script = ExtResource("5_fkybt")
 playerUI = NodePath("../PlayerUi")
+playerHand = NodePath("../CharacterBody3D/Hand")

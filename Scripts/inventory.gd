@@ -1,20 +1,8 @@
 extends Node3D
 
 @export var playerUI : Control
+@export var playerHand : Node3D
 
-class Item:
-	var name : String
-	var type : String
-	var description : String
-
-class MeleeWeapon extends Item:
-	var damage : float
-	
-	func _init(m_name : String, m_type : String, m_description : String, m_damage : float):
-		name = m_name
-		type = m_type
-		description = m_description
-		damage = m_damage
 # Description of item types:
 # consumable describes objects that immediately disappear with a player effect
 # melee weapon has fairly obvious implementation
@@ -25,24 +13,32 @@ class MeleeWeapon extends Item:
 var typesPossible = ["Consumable", "MeleeWeapon", "RangedWeapon", "Armor", "Grenade", "Tool"]
 
 var hotbar : Array
+var currentEquipped = -1
 var inventory : Array
 
 func addItem(name : String):
 	var type = get_type(name)
 	var newItem
+	
 	if(type == "MeleeWeapon"):
-		newItem = MeleeWeapon.new(name, type, get_description(name), get_damage(name))
+		newItem = MeleeWeapon.new(name, type)
+	
 	inventory.append(newItem)
 	if(hotbar.size() <= 10):
 		hotbar.append(newItem)
-		playerUI.changeHotbarSlot(newItem.name, hotbar.size())
+		playerUI.changeHotbarSlot(newItem.item_name, hotbar.size())
 
+func hotbarInteraction(number : int):
+	number -= 1
+	if(number == currentEquipped):
+		currentEquipped = -1
+		playerHand.notHoldingItem()
+	else:
+		currentEquipped = number
+		playerHand.holdingItem(hotbar[number])
+	
 func getHotbarItem(number : int):
 	return hotbar[number]
 
 func get_type(item_name : String) -> String:
 	return "MeleeWeapon"
-func get_description(item_name : String) -> String:
-	return "Sample description for an item (should be from xml file)"
-func get_damage(item_name : String) -> float:
-	return 5.0

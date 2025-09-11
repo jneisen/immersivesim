@@ -13,6 +13,7 @@ var airFriction : float = 0.98
 @export var playerUI : Control
 @export var objectHighlighter : Sprite3D
 @export var inventory : Node3D
+@export var playerHand : Node3D
 
 const SQRTOFTWO = 1.4142
 
@@ -47,6 +48,14 @@ func _process(_delta : float) -> void:
 		backward = true
 	else:
 		backward = false
+	
+	if(Input.is_action_just_pressed("fire")):
+		playerHand.useHeldItem()
+	hotbarInput()
+
+func hotbarInput():
+	if(Input.is_action_just_pressed("hotbar_slot_1")):
+		inventory.hotbarInteraction(1)
 
 func _physics_process(_delta: float) -> void:
 	basicMovement()
