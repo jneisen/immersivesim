@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c65r6l1xq3b34"]
 
-[ext_resource type="Script" uid="uid://ujiyu15lvsa0" path="res://Scripts/player_ui_controller.gd" id="1_es1yn"]
+[ext_resource type="Script" uid="uid://ujiyu15lvsa0" path="res://Scripts/Player/player_ui_controller.gd" id="1_es1yn"]
 
 [node name="PlayerUi" type="Control" node_paths=PackedStringArray("hotbarImage1", "hotbarText1")]
 layout_mode = 3

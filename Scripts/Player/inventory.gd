@@ -16,6 +16,9 @@ var hotbar : Array
 var currentEquipped = -1
 var inventory : Array
 
+func _ready():
+	hotbar.resize(10)
+
 func addItem(name : String):
 	var type = get_type(name)
 	var newItem
@@ -24,9 +27,12 @@ func addItem(name : String):
 		newItem = MeleeWeapon.new(name, type)
 	
 	inventory.append(newItem)
-	if(hotbar.size() <= 10):
-		hotbar.append(newItem)
-		playerUI.changeHotbarSlot(newItem.item_name, hotbar.size())
+	# add it to the first empty hotbar slot
+	for i in range(hotbar.size()):
+		if(!hotbar[i]):
+			hotbar[i] = newItem
+			playerUI.changeHotbarSlot(newItem.item_name, i)
+			break;
 
 func hotbarInteraction(number : int):
 	number -= 1
@@ -34,6 +40,8 @@ func hotbarInteraction(number : int):
 		currentEquipped = -1
 		playerHand.notHoldingItem()
 	else:
+		if(!hotbar[number]):
+			return
 		currentEquipped = number
 		playerHand.holdingItem(hotbar[number])
 	

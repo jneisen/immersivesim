@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjhroqng3y8ud"]
+
+[ext_resource type="Script" uid="uid://s8ihnxj3f6jy" path="res://Scripts/Dynamic Objects/pickup_in_world.gd" id="1_6sgli"]
+[ext_resource type="PackedScene" uid="uid://cw77ck144b6w2" path="res://Models/box.glb" id="2_6sgli"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6sgli"]
+size = Vector3(2, 2, 2)
+
+[node name="Box" type="RigidBody3D"]
+collision_layer = 10
+collision_mask = 13
+mass = 200.0
+script = ExtResource("1_6sgli")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_6sgli")
+
+[node name="box" parent="." instance=ExtResource("2_6sgli")]

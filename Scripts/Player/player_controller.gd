@@ -14,6 +14,10 @@ var airFriction : float = 0.98
 @export var objectHighlighter : Sprite3D
 @export var inventory : Node3D
 @export var playerHand : Node3D
+@export var heldObjectNode : Node3D
+
+# true if holding an object
+var heldObject : Node3D = null
 
 const SQRTOFTWO = 1.4142
 
@@ -67,7 +71,7 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)
-		if c.get_collider().get_collision_layer_value(2):
+		if c.get_collider().collision_layer & 2 > 0:
 			c.get_collider().apply_central_impulse(-c.get_normal()*1)
 
 func basicMovement():
@@ -105,6 +109,14 @@ func basicMovement():
 		velocity = Vector3(velocityxz.x, velocity.y, velocityxz.y)
 
 func handleRaycast():
+	if(heldObject):
+		if(Input.is_action_just_pressed("interact")):
+			var dropVelocity = 4 * Vector3(sin(look_dir.x), 2 * max(-sin(look_dir.y), 0.5), -cos(look_dir.x))
+			heldObject.drop(dropVelocity)
+			await get_tree().create_timer(1).timeout
+			heldObject = null
+		return
+	
 	lookRay.rotation = Vector3(-look_dir.y, 0, 0)
 	var collision = lookRay.get_collider()
 	if(collision == null):
@@ -115,9 +127,15 @@ func handleRaycast():
 		objectHighlighter.unhide()
 		objectHighlighter.move(camera.global_position, collision.global_position)
 		if(Input.is_action_pressed("interact")):
-			# value is null unless an object was picked up
-			var value = collision.interact()
-			if(value):
+			if(collision.getObjectType() == "PickupFromWorld"):
+				collision.interact()
 				inventory.addItem(collision.get_name())
+			elif(collision.getObjectType() == "PickupInWorld"):
+				collision.interact(self, heldObjectNode)
+				heldObject = collision
+				objectHighlighter.hide()
 		return
 	objectHighlighter.hide()
+
+func getLookDir():
+	return look_dir

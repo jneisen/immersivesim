@@ -1,15 +1,29 @@
 [gd_scene load_steps=12 format=3 uid="uid://bmtin1einpkqv"]
 
-[ext_resource type="Script" uid="uid://r8du7y6qsl5c" path="res://Scripts/player_controller.gd" id="1_v0iea"]
+[ext_resource type="Script" uid="uid://r8du7y6qsl5c" path="res://Scripts/Player/player_controller.gd" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://c65r6l1xq3b34" path="res://Scenes/playerUI.tscn" id="2_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://cd16chitavl8i" path="res://Textures/objectHighlight.png" id="3_6t5aa"]
-[ext_resource type="Script" uid="uid://fldljugb1b8k" path="res://Scripts/objectHighlighter.gd" id="4_vgqql"]
-[ext_resource type="Script" uid="uid://b2kxrj20e1f3q" path="res://Scripts/inventory.gd" id="5_fkybt"]
-[ext_resource type="Script" uid="uid://cdkk7f7wu4idk" path="res://Scripts/held_object_behavior.gd" id="6_x3wgy"]
+[ext_resource type="Script" uid="uid://fldljugb1b8k" path="res://Scripts/Player/objectHighlighter.gd" id="4_vgqql"]
+[ext_resource type="Script" uid="uid://b2kxrj20e1f3q" path="res://Scripts/Player/inventory.gd" id="5_fkybt"]
+[ext_resource type="Script" uid="uid://cdkk7f7wu4idk" path="res://Scripts/Player/held_object_behavior.gd" id="6_x3wgy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvnsp"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_6t5aa"]
+
+[sub_resource type="Animation" id="Animation_3smsa"]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.349066, 1.5708, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_x3wgy"]
 resource_name = "melee_weapon_swing"
@@ -25,20 +39,19 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(0.349066, 1.5708, 0), Vector3(0.349066, 1.5708, -1.5708), Vector3(0.349066, 1.5708, 0)]
 }
-
-[sub_resource type="Animation" id="Animation_3smsa"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.349066, 1.5708, 0)]
+"values": [{
+"args": [],
+"method": &"raycastInFront"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3smsa"]
@@ -49,15 +62,16 @@ _data = {
 
 [node name="Player" type="Node3D"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera", "lookRay", "playerUI", "objectHighlighter", "inventory", "playerHand")]
-collision_mask = 3
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera", "lookRay", "playerUI", "objectHighlighter", "inventory", "playerHand", "heldObjectNode")]
+collision_mask = 15
 script = ExtResource("1_v0iea")
 camera = NodePath("Camera3D")
-lookRay = NodePath("RayCast3D")
+lookRay = NodePath("LookCast")
 playerUI = NodePath("../PlayerUi")
 objectHighlighter = NodePath("../ObjectHighlighter")
 inventory = NodePath("../Inventory")
 playerHand = NodePath("Hand")
+heldObjectNode = NodePath("HeldObjectPosition")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CapsuleShape3D_cvnsp")
@@ -68,20 +82,30 @@ mesh = SubResource("CapsuleMesh_6t5aa")
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
 
-[node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D"]
+[node name="LookCast" type="RayCast3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
-target_position = Vector3(0, 0, -5)
-collision_mask = 7
+target_position = Vector3(0, 0, -3)
+collision_mask = 15
 
-[node name="Hand" type="Node3D" parent="CharacterBody3D" node_paths=PackedStringArray("animationPlayer")]
-transform = Transform3D(-4.37114e-08, 0.34202, 0.939693, 0, 0.939693, -0.34202, -1, -1.49502e-08, -4.10753e-08, 0.5, 0, -0.8)
+[node name="HitCast" type="RayCast3D" parent="CharacterBody3D"]
+transform = Transform3D(1, -2.98023e-08, 3.55271e-15, 2.98023e-08, 1, 0, 0, 8.88178e-16, 1, 0, -1.49012e-08, 0)
+target_position = Vector3(0, 0, -2.5)
+collision_mask = 15
+
+[node name="Hand" type="Node3D" parent="CharacterBody3D" node_paths=PackedStringArray("player", "animationPlayer", "hitCast")]
+transform = Transform3D(-3.61999e-06, 0.34202, 0.939693, 0, 0.939693, -0.34202, -1, -1.23811e-06, -3.40168e-06, 0.5, 0, -0.8)
 script = ExtResource("6_x3wgy")
+player = NodePath("..")
 animationPlayer = NodePath("AnimationPlayer")
+hitCast = NodePath("../HitCast")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody3D/Hand"]
 libraries = {
 &"": SubResource("AnimationLibrary_3smsa")
 }
+
+[node name="HeldObjectPosition" type="Node3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
 
 [node name="PlayerUi" parent="." instance=ExtResource("2_cvnsp")]
 
