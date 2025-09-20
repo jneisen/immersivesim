@@ -71,7 +71,7 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)
-		if c.get_collider().collision_layer & 2 > 0:
+		if(c.get_collider() == RigidBody3D && c.get_collider().collision_layer & 2 > 0):
 			c.get_collider().apply_central_impulse(-c.get_normal()*1)
 
 func basicMovement():
@@ -111,10 +111,7 @@ func basicMovement():
 func handleRaycast():
 	if(heldObject):
 		if(Input.is_action_just_pressed("interact")):
-			var dropVelocity = 4 * Vector3(sin(look_dir.x), 2 * max(-sin(look_dir.y), 0.5), -cos(look_dir.x))
-			heldObject.drop(dropVelocity)
-			await get_tree().create_timer(1).timeout
-			heldObject = null
+			dropHeldObject()
 		return
 	
 	lookRay.rotation = Vector3(-look_dir.y, 0, 0)
@@ -125,8 +122,8 @@ func handleRaycast():
 	if(collision.collision_layer & 2 > 0):
 		# highlight
 		objectHighlighter.unhide()
-		objectHighlighter.move(camera.global_position, collision.global_position)
-		if(Input.is_action_pressed("interact")):
+		objectHighlighter.move(camera.global_position, collision)
+		if(Input.is_action_just_pressed("interact")):
 			if(collision.getObjectType() == "PickupFromWorld"):
 				collision.interact()
 				inventory.addItem(collision.get_name())
@@ -134,8 +131,20 @@ func handleRaycast():
 				collision.interact(self, heldObjectNode)
 				heldObject = collision
 				objectHighlighter.hide()
+			elif(collision.getObjectType() == "Interact"):
+				collision.interact()
 		return
 	objectHighlighter.hide()
 
 func getLookDir():
 	return look_dir
+
+func dropHeldObject():
+	var dropVelocity = 4 * Vector3(sin(look_dir.x), 2 * max(-sin(look_dir.y), 0.5), -cos(look_dir.x))
+	heldObject.drop(dropVelocity)
+	await get_tree().create_timer(0.1).timeout
+	heldObject = null
+
+func droppedHeldObject():
+	await get_tree().create_timer(0.1).timeout
+	heldObject = null

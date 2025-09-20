@@ -19,12 +19,12 @@ var inventory : Array
 func _ready():
 	hotbar.resize(10)
 
-func addItem(name : String):
-	var type = get_type(name)
+func addItem(m_name : String):
+	var type = get_type(m_name)
 	var newItem
 	
 	if(type == "MeleeWeapon"):
-		newItem = MeleeWeapon.new(name, type)
+		newItem = MeleeWeapon.new(m_name, type)
 	
 	inventory.append(newItem)
 	# add it to the first empty hotbar slot
@@ -48,5 +48,5 @@ func hotbarInteraction(number : int):
 func getHotbarItem(number : int):
 	return hotbar[number]
 
-func get_type(item_name : String) -> String:
+func get_type(m_item_name : String) -> String:
 	return "MeleeWeapon"

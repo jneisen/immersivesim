@@ -2,13 +2,17 @@
 
 todo list :
 
+\[ ] decide theming / brief story
+
 item data with xml file
 
 using items  
-\[~] melee weapons  
+\[X] melee weapons  
 \[ ] consumables  
-\[ ] ranged weapons  
-\[ ] grenades
+\ \[ ] lockpicks
+\ \[ ] food
+\[ ] ranged weapons
+\[ ] grenades?
 
 hotbar functional  
 inventory system UI (list for now)  
@@ -16,10 +20,8 @@ change hotbar slots in inventory UI
 
 interacting with objects  
 \[X] pickup into inventory  
-\[ ] open door  
-\[ ] lift in world  
+\[X] open door  
+\[X] lift in world  
+\[X] button to activate linked object
+\[ ] keypad
 \[ ] display text
-
-Is it medieval?  
-Use CSG to make level geometry (when I start doing that)
-

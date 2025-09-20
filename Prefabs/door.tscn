@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://5klua6lb6kkp"]
+
+[ext_resource type="Script" uid="uid://cjo1k3t10xpag" path="res://Scripts/Dynamic Objects/door.gd" id="1_bp8im"]
+[ext_resource type="PackedScene" uid="uid://cm15wfkvi2ntx" path="res://Models/door.glb" id="1_uqoeb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uqoeb"]
+size = Vector3(1.39, 2.413, 0.096)
+
+[node name="Door" type="StaticBody3D"]
+collision_layer = 11
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+script = ExtResource("1_bp8im")
+
+[node name="Center" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.641362, 1.25656, -0.0486175)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649112, 1.2229, -0.0215528)
+shape = SubResource("BoxShape3D_uqoeb")
+
+[node name="door" parent="." instance=ExtResource("1_uqoeb")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.01379, 0, 0)
