@@ -41,6 +41,8 @@ func hotbarInteraction(number : int):
 		playerHand.notHoldingItem()
 	else:
 		if(!hotbar[number]):
+			currentEquipped = -1
+			playerHand.notHoldingItem()
 			return
 		currentEquipped = number
 		playerHand.holdingItem(hotbar[number])

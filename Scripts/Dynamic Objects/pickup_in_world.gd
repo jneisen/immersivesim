@@ -8,6 +8,10 @@ var objectType = "PickupInWorld"
 var follow = null
 var rotationFollow = null
 
+func _ready() -> void:
+	contact_monitor = true
+	max_contacts_reported = 5
+
 func damage(amount : int):
 	if(!damageable):
 		return

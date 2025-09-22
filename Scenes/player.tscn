@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bmtin1einpkqv"]
 
 [ext_resource type="Script" uid="uid://r8du7y6qsl5c" path="res://Scripts/Player/player_controller.gd" id="1_v0iea"]
-[ext_resource type="PackedScene" uid="uid://c65r6l1xq3b34" path="res://Scenes/playerUI.tscn" id="2_cvnsp"]
+[ext_resource type="PackedScene" uid="uid://c65r6l1xq3b34" path="res://Scenes/UI/playerUI.tscn" id="2_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://cd16chitavl8i" path="res://Textures/objectHighlight.png" id="3_6t5aa"]
 [ext_resource type="Script" uid="uid://fldljugb1b8k" path="res://Scripts/Player/objectHighlighter.gd" id="4_vgqql"]
 [ext_resource type="Script" uid="uid://b2kxrj20e1f3q" path="res://Scripts/Player/inventory.gd" id="5_fkybt"]
@@ -63,7 +63,7 @@ _data = {
 [node name="Player" type="Node3D"]
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera", "lookRay", "playerUI", "objectHighlighter", "inventory", "playerHand", "heldObjectNode")]
-collision_mask = 15
+collision_mask = 13
 script = ExtResource("1_v0iea")
 camera = NodePath("Camera3D")
 lookRay = NodePath("LookCast")

@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://cjm2s50wuk2mt"]
+[gd_scene load_steps=25 format=3 uid="uid://cjm2s50wuk2mt"]
 
 [ext_resource type="PackedScene" uid="uid://bmtin1einpkqv" path="res://Scenes/player.tscn" id="1_lc1oi"]
 [ext_resource type="PackedScene" uid="uid://ba1mnt4l1neuu" path="res://Prefabs/sword.tscn" id="2_8od7v"]
 [ext_resource type="PackedScene" uid="uid://bjhroqng3y8ud" path="res://Prefabs/box.tscn" id="3_qc4db"]
 [ext_resource type="PackedScene" uid="uid://5klua6lb6kkp" path="res://Prefabs/door.tscn" id="4_ys1qc"]
 [ext_resource type="PackedScene" uid="uid://ckbefmsddghpg" path="res://Prefabs/button.tscn" id="5_35xla"]
+[ext_resource type="PackedScene" uid="uid://bfjstqt3ybi2i" path="res://Prefabs/letter.tscn" id="6_i3aeo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o3qbn"]
 size = Vector3(40, 0.25, 40)
@@ -287,3 +288,7 @@ lock_strength = -1
 [node name="Button" parent="Dynamic Objects" node_paths=PackedStringArray("linkedObject") instance=ExtResource("5_35xla")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.40679, -1.06907, 9.98217)
 linkedObject = NodePath("../Door")
+
+[node name="Letter" parent="Dynamic Objects" instance=ExtResource("6_i3aeo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.985743, 2.43022)
+textName = "Thelma's Biography"

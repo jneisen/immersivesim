@@ -8,6 +8,9 @@ var currentObjectModel = null
 var currentObject = null
 
 func holdingItem(object : Item):
+	notHoldingItem()
+	if(!object):
+		return
 	# show the model stored in that item
 	currentObject = object
 	var itemObject = object.model.instantiate()
@@ -15,7 +18,8 @@ func holdingItem(object : Item):
 	add_child(itemObject)
 
 func notHoldingItem():
-	currentObjectModel.queue_free()
+	if(currentObjectModel):
+		currentObjectModel.queue_free()
 	currentObjectModel = null
 	currentObject = null
 

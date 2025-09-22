@@ -28,6 +28,8 @@ var backward : bool = false
 
 var look_dir : Vector2 # way that the character is facing
 
+var lookingAtText : bool = false
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -55,11 +57,39 @@ func _process(_delta : float) -> void:
 	
 	if(Input.is_action_just_pressed("fire")):
 		playerHand.useHeldItem()
+	
+	if(Input.is_action_just_pressed("esc")):
+		if(lookingAtText):
+			# hide the text
+			playerUI.hideTextbox()
+			unpauseGame()
+		else:
+			# show the main menu and pause
+			pauseGame()
+	
 	hotbarInput()
 
 func hotbarInput():
 	if(Input.is_action_just_pressed("hotbar_slot_1")):
 		inventory.hotbarInteraction(1)
+	elif(Input.is_action_just_pressed("hotbar_slot_2")):
+		inventory.hotbarInteraction(2)
+	elif(Input.is_action_just_pressed("hotbar_slot_3")):
+		inventory.hotbarInteraction(3)
+	elif(Input.is_action_just_pressed("hotbar_slot_4")):
+		inventory.hotbarInteraction(4)
+	elif(Input.is_action_just_pressed("hotbar_slot_5")):
+		inventory.hotbarInteraction(5)
+	elif(Input.is_action_just_pressed("hotbar_slot_6")):
+		inventory.hotbarInteraction(6)
+	elif(Input.is_action_just_pressed("hotbar_slot_7")):
+		inventory.hotbarInteraction(7)
+	elif(Input.is_action_just_pressed("hotbar_slot_8")):
+		inventory.hotbarInteraction(8)
+	elif(Input.is_action_just_pressed("hotbar_slot_9")):
+		inventory.hotbarInteraction(9)
+	elif(Input.is_action_just_pressed("hotbar_slot_0")):
+		inventory.hotbarInteraction(10)
 
 func _physics_process(_delta: float) -> void:
 	basicMovement()
@@ -126,11 +156,20 @@ func handleRaycast():
 		if(Input.is_action_just_pressed("interact")):
 			if(collision.getObjectType() == "PickupFromWorld"):
 				collision.interact()
-				inventory.addItem(collision.get_name())
+				inventory.addItem(collision.objectName)
 			elif(collision.getObjectType() == "PickupInWorld"):
 				collision.interact(self, heldObjectNode)
 				heldObject = collision
 				objectHighlighter.hide()
+			elif(collision.getObjectType() == "Text"):
+				if(!lookingAtText):
+					lookingAtText = true
+					playerUI.displayTextbox(collision.interact())
+					pauseGame()
+				else:
+					lookingAtText = false
+					playerUI.hideTextbox()
+					unpauseGame()
 			elif(collision.getObjectType() == "Interact"):
 				collision.interact()
 		return
@@ -148,3 +187,8 @@ func dropHeldObject():
 func droppedHeldObject():
 	await get_tree().create_timer(0.1).timeout
 	heldObject = null
+
+func pauseGame():
+	pass
+func unpauseGame():
+	pass

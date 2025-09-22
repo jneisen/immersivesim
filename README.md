@@ -2,19 +2,22 @@
 
 todo list :
 
-\[ ] decide theming / brief story
+\[X] decide theming / brief story
 
-item data with xml file
+[ ]item data with xml file
 
 using items  
 \[X] melee weapons  
 \[ ] consumables  
 \ \[ ] lockpicks
-\ \[ ] food
+\ \[ ] food / medicine
 \[ ] ranged weapons
+\ \[ ] bow
+\ \[ ] gun
 \[ ] grenades?
 
-hotbar functional  
+[X] hotbar functional
+[ ] hotbar beautiful
 inventory system UI (list for now)  
 change hotbar slots in inventory UI
 
@@ -24,4 +27,9 @@ interacting with objects
 \[X] lift in world  
 \[X] button to activate linked object
 \[ ] keypad
-\[ ] display text
+\[X] display text
+\ \[ ] prettier displayed text
+
+bugs:
+
+/[ ] fix box flying
