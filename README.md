@@ -4,9 +4,9 @@ todo list :
 
 \[X] decide theming / brief story
 
-[ ]item data with xml file
+[X]item data with xml file
 
-using items  
+[ ] using items / determine item data
 \[X] melee weapons  
 \[ ] consumables  
 \ \[ ] lockpicks
@@ -25,6 +25,7 @@ interacting with objects
 \[X] pickup into inventory  
 \[X] open door  
 \[X] lift in world  
+\ \[X] It even goes transparent
 \[X] button to activate linked object
 \[ ] keypad
 \[X] display text
@@ -32,4 +33,4 @@ interacting with objects
 
 bugs:
 
-/[ ] fix box flying
+/[~] fix box flying (good enough)

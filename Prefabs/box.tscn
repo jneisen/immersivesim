@@ -15,4 +15,4 @@ script = ExtResource("1_6sgli")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_6sgli")
 
-[node name="box" parent="." instance=ExtResource("2_6sgli")]
+[node name="mesh" parent="." instance=ExtResource("2_6sgli")]

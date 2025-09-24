@@ -1,6 +1,6 @@
 extends RigidBody3D
 
-@export var objectName = "Sword"
+@export var objectName = "Needle"
 var objectType = "PickupFromWorld"
 
 func getObjectType():

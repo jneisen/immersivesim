@@ -5,8 +5,10 @@ var type : String
 var description : String
 var model : PackedScene
 
+func setName(m_item_name : String):
+	item_name = m_item_name
+	model = get_model(item_name)
+
 func get_model(m_item_name : String) -> PackedScene:
 	var string = "res://Models/" + item_name + ".glb"
 	return load(string)
-func get_description(m_item_name : String) -> String:
-	return "Sample description for an item (should be from xml file)"

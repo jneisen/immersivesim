@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item>
+	<type>Melee Weapon</type>
+	<name>Sword</name>
+	<description>A harsh sword for cutting open enemies</description>
+	<damage>5</damage>
+	<swing_speed>1</swing_speed>
+	<range>1</range>
+</item>
+<item>
+	<type>Melee Weapon</type>
+	<name>Needle</name>
+	<description>A pointy needle, *ouch*</description>
+	<damage>1</damage>
+	<swing_speed>4</swing_speed>
+	<range>0.5</range>
+</item>

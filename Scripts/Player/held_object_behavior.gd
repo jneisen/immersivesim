@@ -7,6 +7,8 @@ extends Node3D
 var currentObjectModel = null
 var currentObject = null
 
+var currentMeleeRange : float
+
 func holdingItem(object : Item):
 	notHoldingItem()
 	if(!object):
@@ -26,13 +28,16 @@ func notHoldingItem():
 func useHeldItem():
 	if(!currentObject):
 		return
-	elif(currentObject.type == "MeleeWeapon"):
+	elif(currentObject.type == "Melee Weapon"):
+		animationPlayer.speed_scale = currentObject.swing_speed
+		currentMeleeRange = currentObject.range
 		animationPlayer.play("melee_weapon_swing")
 		# raycast out damage
 
 func raycastInFront():
 	# use player raycast
 	var look_dir = player.getLookDir()
+	hitCast.target_position = Vector3(0, 0, -currentMeleeRange * 2.5)
 	hitCast.rotation = Vector3(-look_dir.y, 0, 0)
 	var collision = hitCast.get_collider()
 	if(collision == null):

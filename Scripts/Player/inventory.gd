@@ -3,29 +3,24 @@ extends Node3D
 @export var playerUI : Control
 @export var playerHand : Node3D
 
-# Description of item types:
-# consumable describes objects that immediately disappear with a player effect
-# melee weapon has fairly obvious implementation
-# ranged weapon too
-# armor is an equipable item
-# grenade is a ranged weapon but it disappears if it runs out of ammo
-# tool describes lockpick / multitool where you point it and it takes time to use (but still consumable)
-var typesPossible = ["Consumable", "MeleeWeapon", "RangedWeapon", "Armor", "Grenade", "Tool"]
-
 var hotbar : Array
 var currentEquipped = -1
 var inventory : Array
+var itemArray : Array
 
 func _ready():
 	hotbar.resize(10)
+	ItemExtractor.init()
+	itemArray = ItemExtractor.getItemArray()
 
 func addItem(m_name : String):
-	var type = get_type(m_name)
 	var newItem
-	
-	if(type == "MeleeWeapon"):
-		newItem = MeleeWeapon.new(m_name, type)
-	
+	for i in range(itemArray.size()):
+		if(itemArray[i].item_name == m_name):
+			newItem = itemArray[i]
+	if(newItem == null):
+		print("Error, item not found")
+		return
 	inventory.append(newItem)
 	# add it to the first empty hotbar slot
 	for i in range(hotbar.size()):
