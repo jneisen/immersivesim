@@ -157,7 +157,7 @@ func handleRaycast():
 			if(collision.getObjectType() == "PickupFromWorld"):
 				collision.interact()
 				inventory.addItem(collision.objectName)
-			elif(collision.getObjectType() == "PickupInWorld"):
+			elif(collision.getObjectType() == "PickupInWorld" && !inventory.isHoldingItem()):
 				collision.interact(self, heldObjectNode)
 				heldObject = collision
 				objectHighlighter.hide()

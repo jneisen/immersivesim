@@ -114,6 +114,7 @@ hotbar_slot_0={
 3d_physics/layer_2="Interactables"
 3d_physics/layer_3="Object Layer"
 3d_physics/layer_4="Damageable"
+3d_physics/layer_5="Bullet"
 
 [rendering]
 

@@ -6,14 +6,14 @@ todo list :
 
 [X]item data with xml file
 
-[ ] using items / determine item data
+[ ] using items
 \[X] melee weapons  
 \[ ] consumables  
 \ \[ ] lockpicks
 \ \[ ] food / medicine
-\[ ] ranged weapons
-\ \[ ] bow
-\ \[ ] gun
+\[X] ranged weapons
+\ \[X] bow
+\ \[X] gun
 \[ ] grenades?
 
 [X] hotbar functional

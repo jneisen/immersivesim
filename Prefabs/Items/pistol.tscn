@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://brhqqwvhk4xyj"]
+
+[ext_resource type="PackedScene" uid="uid://diswpgibmfj6q" path="res://Models/Items/pistol.glb" id="1_4e42r"]
+[ext_resource type="Script" uid="uid://dlwyly0ayk6se" path="res://Scripts/Dynamic Objects/pickup_object.gd" id="1_4y6rf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4y6rf"]
+size = Vector3(0.206509, 0.396286, 0.611895)
+
+[node name="Pistol" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 31
+script = ExtResource("1_4y6rf")
+objectName = "Pistol"
+
+[node name="pistol" parent="." instance=ExtResource("1_4e42r")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.204459, 0.0999993, 0.00219454)
+shape = SubResource("BoxShape3D_4y6rf")

@@ -45,5 +45,5 @@ func hotbarInteraction(number : int):
 func getHotbarItem(number : int):
 	return hotbar[number]
 
-func get_type(m_item_name : String) -> String:
-	return "MeleeWeapon"
+func isHoldingItem():
+	return playerHand.isHoldingItem()

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://5klua6lb6kkp"]
 
 [ext_resource type="Script" uid="uid://cjo1k3t10xpag" path="res://Scripts/Dynamic Objects/door.gd" id="1_bp8im"]
-[ext_resource type="PackedScene" uid="uid://cm15wfkvi2ntx" path="res://Models/door.glb" id="1_uqoeb"]
+[ext_resource type="PackedScene" uid="uid://cm15wfkvi2ntx" path="res://Models/Scenary/door.glb" id="1_uqoeb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uqoeb"]
 size = Vector3(1.39, 2.413, 0.096)

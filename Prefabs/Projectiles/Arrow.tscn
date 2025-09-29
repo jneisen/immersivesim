@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://m76qy8df6pxu"]
+
+[ext_resource type="Script" uid="uid://dslyc242ddrer" path="res://Scripts/Dynamic Objects/Projectiles/bullet.gd" id="1_x05lk"]
+[ext_resource type="PackedScene" uid="uid://b5gjoeyaxpuv2" path="res://Models/Projectile/arrow.glb" id="2_8d5rp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vlyk4"]
+radius = 0.19584
+height = 3.17388
+
+[node name="Arrow" type="RigidBody3D"]
+collision_layer = 16
+collision_mask = 15
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_x05lk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -1.27171)
+shape = SubResource("CapsuleShape3D_vlyk4")
+
+[node name="arrow" parent="." instance=ExtResource("2_8d5rp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.53785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

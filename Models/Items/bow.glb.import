@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dergc0gku3wqq"
-path="res://.godot/imported/needle.glb-45281c2595e891e07c351f5ebab120aa.scn"
+uid="uid://d3anqp28fy0th"
+path="res://.godot/imported/bow.glb-97708b833877068d07d32dc295226305.scn"
 
 [deps]
 
-source_file="res://Models/needle.glb"
-dest_files=["res://.godot/imported/needle.glb-45281c2595e891e07c351f5ebab120aa.scn"]
+source_file="res://Models/Items/bow.glb"
+dest_files=["res://.godot/imported/bow.glb-97708b833877068d07d32dc295226305.scn"]
 
 [params]
 

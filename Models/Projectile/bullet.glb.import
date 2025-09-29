@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cm15wfkvi2ntx"
-path="res://.godot/imported/door.glb-3dbf61c6a2a0fae74228b547c35f33a4.scn"
+uid="uid://c0n88jaje8j7h"
+path="res://.godot/imported/bullet.glb-01591e7045e237143bfb60cc77998403.scn"
 
 [deps]
 
-source_file="res://Models/door.glb"
-dest_files=["res://.godot/imported/door.glb-3dbf61c6a2a0fae74228b547c35f33a4.scn"]
+source_file="res://Models/Projectile/bullet.glb"
+dest_files=["res://.godot/imported/bullet.glb-01591e7045e237143bfb60cc77998403.scn"]
 
 [params]
 

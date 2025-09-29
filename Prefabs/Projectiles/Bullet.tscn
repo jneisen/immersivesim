@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://3lu2qid1o3g3"]
+
+[ext_resource type="Script" uid="uid://dslyc242ddrer" path="res://Scripts/Dynamic Objects/Projectiles/bullet.gd" id="1_1m5tg"]
+[ext_resource type="PackedScene" uid="uid://c0n88jaje8j7h" path="res://Models/Projectile/bullet.glb" id="1_n2mwt"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1m5tg"]
+radius = 0.2
+height = 0.75
+
+[node name="Bullet" type="RigidBody3D"]
+collision_layer = 16
+collision_mask = 15
+mass = 3.0
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_1m5tg")
+
+[node name="model" parent="." instance=ExtResource("1_n2mwt")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.062)
+shape = SubResource("CapsuleShape3D_1m5tg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

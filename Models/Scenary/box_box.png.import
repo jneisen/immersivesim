@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fxdma4gd7jrv"
-path.s3tc="res://.godot/imported/sword_sword.png-eda0651eb5115edf42bdc97ededac608.s3tc.ctex"
+uid="uid://sh3u6enm2olt"
+path.s3tc="res://.godot/imported/box_box.png-8f5f762df08f067845475363acbec60c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "495b1521e8fab5a8197fa6efe5e4dd59"
+"md5": "d34d60f44b35438cab360012f7ab2217"
 }
 
 [deps]
 
-source_file="res://Models/sword_sword.png"
-dest_files=["res://.godot/imported/sword_sword.png-eda0651eb5115edf42bdc97ededac608.s3tc.ctex"]
+source_file="res://Models/Scenary/box_box.png"
+dest_files=["res://.godot/imported/box_box.png-8f5f762df08f067845475363acbec60c.s3tc.ctex"]
 
 [params]
 

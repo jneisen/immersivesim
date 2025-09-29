@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://b7ikesuulnwkl"]
 
 [ext_resource type="Script" uid="uid://dlwyly0ayk6se" path="res://Scripts/Dynamic Objects/pickup_object.gd" id="1_0cgqf"]
-[ext_resource type="PackedScene" uid="uid://dergc0gku3wqq" path="res://Models/needle.glb" id="2_0cgqf"]
+[ext_resource type="PackedScene" uid="uid://dergc0gku3wqq" path="res://Models/Items/needle.glb" id="2_0cgqf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0c07c"]
 size = Vector3(0.4, 2, 0.3)
 
 [node name="Needle" type="RigidBody3D"]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 31
 script = ExtResource("1_0cgqf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

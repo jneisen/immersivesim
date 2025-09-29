@@ -15,3 +15,27 @@
 	<swing_speed>4</swing_speed>
 	<range>0.5</range>
 </item>
+<item>
+	<type>Ranged Weapon</type>
+	<name>Pistol</name>
+	<description>An average pistol for an average person</description>
+	<projectile>Bullet</projectile>
+	<projectile_speed>50</projectile_speed>
+	<damage>15</damage>
+	<firing_type>gun</firing_type>
+	<firing_speed>1</firing_speed>
+	<reload_speed>3</reload_speed>
+	<clip_size>10</clip_size>
+</item>
+<item>
+	<type>Ranged Weapon</type>
+	<name>Bow</name>
+	<description>A wooden bow, looks like something Robinhood would have used</description>
+	<projectile>Arrow</projectile>
+	<projectile_speed>8</projectile_speed>
+	<damage>15</damage>
+	<firing_type>bow</firing_type>
+	<firing_speed>2</firing_speed>
+	<reload_speed>1</reload_speed>
+	<clip_size>1</clip_size>
+</item>

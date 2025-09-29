@@ -1,12 +1,14 @@
-[gd_scene load_steps=26 format=3 uid="uid://cjm2s50wuk2mt"]
+[gd_scene load_steps=28 format=3 uid="uid://cjm2s50wuk2mt"]
 
 [ext_resource type="PackedScene" uid="uid://bmtin1einpkqv" path="res://Scenes/player.tscn" id="1_lc1oi"]
-[ext_resource type="PackedScene" uid="uid://ba1mnt4l1neuu" path="res://Prefabs/sword.tscn" id="2_8od7v"]
-[ext_resource type="PackedScene" uid="uid://bjhroqng3y8ud" path="res://Prefabs/box.tscn" id="3_qc4db"]
-[ext_resource type="PackedScene" uid="uid://5klua6lb6kkp" path="res://Prefabs/door.tscn" id="4_ys1qc"]
-[ext_resource type="PackedScene" uid="uid://ckbefmsddghpg" path="res://Prefabs/button.tscn" id="5_35xla"]
-[ext_resource type="PackedScene" uid="uid://bfjstqt3ybi2i" path="res://Prefabs/letter.tscn" id="6_i3aeo"]
-[ext_resource type="PackedScene" uid="uid://b7ikesuulnwkl" path="res://Prefabs/needle.tscn" id="7_5wyu1"]
+[ext_resource type="PackedScene" uid="uid://ba1mnt4l1neuu" path="res://Prefabs/Items/sword.tscn" id="2_8od7v"]
+[ext_resource type="PackedScene" uid="uid://bjhroqng3y8ud" path="res://Prefabs/Scenary/box.tscn" id="3_qc4db"]
+[ext_resource type="PackedScene" uid="uid://5klua6lb6kkp" path="res://Prefabs/Scenary/door.tscn" id="4_ys1qc"]
+[ext_resource type="PackedScene" uid="uid://ckbefmsddghpg" path="res://Prefabs/Scenary/button.tscn" id="5_35xla"]
+[ext_resource type="PackedScene" uid="uid://bfjstqt3ybi2i" path="res://Prefabs/Scenary/letter.tscn" id="6_i3aeo"]
+[ext_resource type="PackedScene" uid="uid://b2a0825qh7a6g" path="res://Prefabs/Items/bow.tscn" id="7_2cgwh"]
+[ext_resource type="PackedScene" uid="uid://b7ikesuulnwkl" path="res://Prefabs/Items/needle.tscn" id="7_5wyu1"]
+[ext_resource type="PackedScene" uid="uid://brhqqwvhk4xyj" path="res://Prefabs/Items/pistol.tscn" id="8_0c07c"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o3qbn"]
 size = Vector3(40, 0.25, 40)
@@ -295,5 +297,11 @@ linkedObject = NodePath("../Door")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.985743, 2.43022)
 textName = "Thelma's Biography"
 
-[node name="Needle" parent="." instance=ExtResource("7_5wyu1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.21327, 1.32525, -8.21578)
+[node name="Bow" parent="Dynamic Objects" instance=ExtResource("7_2cgwh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.523, -0.844069, -6.53511)
+
+[node name="Needle" parent="Dynamic Objects" instance=ExtResource("7_5wyu1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.00618, -0.89908, -5.06658)
+
+[node name="Pistol" parent="Dynamic Objects" instance=ExtResource("8_0c07c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.96142, -1.57188, -5.61403)

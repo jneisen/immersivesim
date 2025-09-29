@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c7up5fjut0j5v"
-path="res://.godot/imported/sword.glb-b24bf122e75a9cf647bf56d3f71a7fa6.scn"
+uid="uid://cm15wfkvi2ntx"
+path="res://.godot/imported/door.glb-e7f22129b9f948a46cc7cfff6ad42105.scn"
 
 [deps]
 
-source_file="res://Models/sword.glb"
-dest_files=["res://.godot/imported/sword.glb-b24bf122e75a9cf647bf56d3f71a7fa6.scn"]
+source_file="res://Models/Scenary/door.glb"
+dest_files=["res://.godot/imported/door.glb-e7f22129b9f948a46cc7cfff6ad42105.scn"]
 
 [params]
 
