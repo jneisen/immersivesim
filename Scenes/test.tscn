@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cjm2s50wuk2mt"]
+[gd_scene load_steps=29 format=3 uid="uid://cjm2s50wuk2mt"]
 
 [ext_resource type="PackedScene" uid="uid://bmtin1einpkqv" path="res://Scenes/player.tscn" id="1_lc1oi"]
 [ext_resource type="PackedScene" uid="uid://ba1mnt4l1neuu" path="res://Prefabs/Items/sword.tscn" id="2_8od7v"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b2a0825qh7a6g" path="res://Prefabs/Items/bow.tscn" id="7_2cgwh"]
 [ext_resource type="PackedScene" uid="uid://b7ikesuulnwkl" path="res://Prefabs/Items/needle.tscn" id="7_5wyu1"]
 [ext_resource type="PackedScene" uid="uid://brhqqwvhk4xyj" path="res://Prefabs/Items/pistol.tscn" id="8_0c07c"]
+[ext_resource type="PackedScene" uid="uid://bu2p08qc75e2i" path="res://Prefabs/Scenary/target.tscn" id="10_iaow0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o3qbn"]
 size = Vector3(40, 0.25, 40)
@@ -305,3 +306,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.00618, -0.89908, -5.06658)
 
 [node name="Pistol" parent="Dynamic Objects" instance=ExtResource("8_0c07c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.96142, -1.57188, -5.61403)
+
+[node name="Target" parent="Dynamic Objects" instance=ExtResource("10_iaow0")]
+transform = Transform3D(0.707107, 0.664463, 0.241845, 0, 0.34202, -0.939692, -0.707107, 0.664463, 0.241845, -10.0763, 0.292727, -13.5578)

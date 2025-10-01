@@ -1,15 +1,16 @@
 extends CharacterBody3D
 
-@export_range(5, 20, 1) var speed : float = 10
+var speed : float = 10
 var friction : float = 0.8
 var airFriction : float = 0.98
-@export_range(0, 1, 0.05) var airAccelerationFraction : float = 0.1
-@export_range(0, 10, 0.1) var acceleration : float = 1.5
-@export_range(5, 20, 1) var jump : float = 10
+var airAccelerationFraction : float = 0.1
+var acceleration : float = 1.5
+var jump : float = 10
 
 @export var camera : Camera3D
 @export var lookRay : RayCast3D
 
+@export var player : Node3D
 @export var playerUI : Control
 @export var objectHighlighter : Sprite3D
 @export var inventory : Node3D
@@ -20,6 +21,8 @@ var airFriction : float = 0.98
 var heldObject : Node3D = null
 
 const SQRTOFTWO = 1.4142
+
+var disabledInput : bool = false
 
 var forward : bool = false
 var left : bool = false
@@ -32,42 +35,49 @@ var lookingAtText : bool = false
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion && !disabledInput:
 		look_dir += event.relative * 0.005
 
 func _process(_delta : float) -> void:
-	if(Input.is_action_pressed("forward")):
-		forward = true
+	if(!disabledInput):
+		if(Input.is_action_pressed("forward")):
+			forward = true
+		else:
+			forward = false
+		if(Input.is_action_pressed("left")):
+			left = true
+		else:
+			left = false
+		if(Input.is_action_pressed("right")):
+			right = true
+		else:
+			right = false
+		if(Input.is_action_pressed("backward")):
+			backward = true
+		else:
+			backward = false
+		
+		if(Input.is_action_just_pressed("fire")):
+			playerHand.useHeldItem()
+		
+		hotbarInput()
 	else:
 		forward = false
-	if(Input.is_action_pressed("left")):
-		left = true
-	else:
 		left = false
-	if(Input.is_action_pressed("right")):
-		right = true
-	else:
 		right = false
-	if(Input.is_action_pressed("backward")):
-		backward = true
-	else:
 		backward = false
-	
-	if(Input.is_action_just_pressed("fire")):
-		playerHand.useHeldItem()
-	
+		
 	if(Input.is_action_just_pressed("esc")):
-		if(lookingAtText):
+		if(lookingAtText || disabledInput):
 			# hide the text
 			playerUI.hideTextbox()
 			unpauseGame()
 		else:
 			# show the main menu and pause
 			pauseGame()
-	
-	hotbarInput()
 
 func hotbarInput():
 	if(Input.is_action_just_pressed("hotbar_slot_1")):
@@ -117,7 +127,7 @@ func basicMovement():
 	if(backward):
 		velocity += airCoefficient * acceleration * Vector3(-sin(look_dir.x), 0, cos(look_dir.x))
 	
-	if(Input.is_action_just_pressed("jump") && is_on_floor()):
+	if(Input.is_action_just_pressed("jump") && is_on_floor() && !disabledInput):
 		velocity.y += jump
 	elif(is_on_floor()):
 		velocity.y = 0
@@ -149,7 +159,7 @@ func handleRaycast():
 	if(collision == null):
 		objectHighlighter.hide()
 		return
-	if(collision.collision_layer & 2 > 0):
+	if(collision.collision_layer & 2 > 0 && !inventory.isHoldingItem()):
 		# highlight
 		objectHighlighter.unhide()
 		objectHighlighter.move(camera.global_position, collision)
@@ -157,7 +167,7 @@ func handleRaycast():
 			if(collision.getObjectType() == "PickupFromWorld"):
 				collision.interact()
 				inventory.addItem(collision.objectName)
-			elif(collision.getObjectType() == "PickupInWorld" && !inventory.isHoldingItem()):
+			elif(collision.getObjectType() == "PickupInWorld"):
 				collision.interact(self, heldObjectNode)
 				heldObject = collision
 				objectHighlighter.hide()
@@ -188,7 +198,13 @@ func droppedHeldObject():
 	await get_tree().create_timer(0.1).timeout
 	heldObject = null
 
+func damage(val):
+	player.add_health(-val)
+
 func pauseGame():
-	pass
+	disabledInput = true
+	get_tree().paused = true
+
 func unpauseGame():
-	pass
+	disabledInput = false
+	get_tree().paused = false

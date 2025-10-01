@@ -13,12 +13,13 @@ collision_mask = 15
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_x05lk")
+size = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -1.27171)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 1.60626)
 shape = SubResource("CapsuleShape3D_vlyk4")
 
 [node name="arrow" parent="." instance=ExtResource("2_8d5rp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.53785)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.340115)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

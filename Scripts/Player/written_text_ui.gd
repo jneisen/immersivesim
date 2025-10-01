@@ -10,6 +10,8 @@ class TextFile:
 
 func _ready() -> void:
 	readFile("res://Data/written_words.xml")
+	position = Vector2(get_viewport_rect().size.x / 2, 50)
+
 
 func readFile(file : String):
 	# search through the xml file for the correct name

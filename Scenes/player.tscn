@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://bmtin1einpkqv"]
+[gd_scene load_steps=15 format=3 uid="uid://bmtin1einpkqv"]
 
+[ext_resource type="Script" uid="uid://bppri053niccw" path="res://Scripts/Player/player.gd" id="1_3smsa"]
 [ext_resource type="Script" uid="uid://r8du7y6qsl5c" path="res://Scripts/Player/player_controller.gd" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://c65r6l1xq3b34" path="res://Scenes/UI/playerUI.tscn" id="2_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://cd16chitavl8i" path="res://Textures/objectHighlight.png" id="3_6t5aa"]
@@ -106,12 +107,14 @@ _data = {
 }
 
 [node name="Player" type="Node3D"]
+script = ExtResource("1_3smsa")
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera", "lookRay", "playerUI", "objectHighlighter", "inventory", "playerHand", "heldObjectNode")]
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera", "lookRay", "player", "playerUI", "objectHighlighter", "inventory", "playerHand", "heldObjectNode")]
 collision_mask = 13
 script = ExtResource("1_v0iea")
 camera = NodePath("Camera3D")
 lookRay = NodePath("LookCast")
+player = NodePath("..")
 playerUI = NodePath("../PlayerUi")
 objectHighlighter = NodePath("../ObjectHighlighter")
 inventory = NodePath("../Inventory")
@@ -137,10 +140,11 @@ transform = Transform3D(1, -2.98023e-08, 3.55271e-15, 2.98023e-08, 1, 0, 0, 8.88
 target_position = Vector3(0, 0, -2.5)
 collision_mask = 15
 
-[node name="Hand" type="Node3D" parent="CharacterBody3D" node_paths=PackedStringArray("player", "animationPlayer", "hitCast")]
+[node name="Hand" type="Node3D" parent="CharacterBody3D" node_paths=PackedStringArray("player", "playerController", "animationPlayer", "hitCast")]
 transform = Transform3D(-3.61999e-06, 0.34202, 0.939693, 0, 0.939693, -0.34202, -1, -1.23811e-06, -3.40168e-06, 0.5, 0, -0.8)
 script = ExtResource("6_x3wgy")
-player = NodePath("..")
+player = NodePath("../..")
+playerController = NodePath("..")
 animationPlayer = NodePath("AnimationPlayer")
 hitCast = NodePath("../HitCast")
 

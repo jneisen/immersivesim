@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bu2p08qc75e2i"]
+
+[ext_resource type="Script" uid="uid://c4d44kmisvwa0" path="res://Scripts/Dynamic Objects/target.gd" id="1_30ngm"]
+[ext_resource type="PackedScene" uid="uid://mel5g1yf7pl4" path="res://Models/Scenary/indicator.glb" id="2_kvtca"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_kvtca"]
+height = 0.25
+radius = 2.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_h34ky"]
+top_radius = 2.0
+bottom_radius = 2.0
+height = 0.25
+
+[node name="Target" type="StaticBody3D" node_paths=PackedStringArray("bottomPoint", "topPoint", "leftPoint", "rightPoint")]
+collision_layer = 9
+collision_mask = 31
+script = ExtResource("1_30ngm")
+indicator = ExtResource("2_kvtca")
+bottomPoint = NodePath("")
+topPoint = NodePath("")
+leftPoint = NodePath("")
+rightPoint = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_kvtca")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_h34ky")
