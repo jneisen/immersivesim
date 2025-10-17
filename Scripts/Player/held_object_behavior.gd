@@ -7,10 +7,13 @@ extends Node3D
 
 var currentObjectModel = null
 var currentObject = null
+var itemObject = null
 
 var currentMeleeRange : float
 
+var bowStartObject = null
 var drawingBow : bool = false
+var drawingAnim
 var started : bool = false
 var timePassed : float = 0
 
@@ -23,7 +26,7 @@ func holdingItem(object : Item):
 		return
 	# show the model stored in that item
 	currentObject = object
-	var itemObject = object.model.instantiate()
+	itemObject = object.model.instantiate()
 	currentObjectModel = itemObject
 	add_child(itemObject)
 	animationPlayer.stop()
@@ -55,13 +58,23 @@ func useHeldItem():
 			gunLogic()
 		elif(currentObject.firing_type == "bow"):
 			animationPlayer.speed_scale = 1.5
+			bowStartObject = currentObject
 			drawingBow = true
+			drawingAnim = itemObject.get_node("AnimationPlayer")
+			drawingAnim.speed_scale = 0.4
+			drawingAnim.play("pull_back")
 
 func bowLogic(delta : float):
+	if(currentObject != bowStartObject):
+		timePassed = 0
+		drawingBow = false
+		started = false
+		return
 	started = true
 	if(Input.is_action_pressed("fire")):
 		if(animationPlayer.current_animation == ""):
 			animationPlayer.play("ranged_weapon_shudder")
+			
 		timePassed += delta
 		# when its released, fire the projectile
 	else:
@@ -70,6 +83,7 @@ func bowLogic(delta : float):
 		var look_vector3 = Vector3(sin(look_dir.x), sin(-look_dir.y - PI / 72), -cos(look_dir.x))
 		var firing_time = currentObject.projectile_speed * min(1, timePassed / currentObject.firing_speed)
 		
+		arrow.damage = currentObject.damage
 		arrow.linear_velocity = currentObject.projectile_speed * look_vector3 * firing_time
 		arrow.position = global_position
 		arrow.look_at_from_position(global_position, arrow.linear_velocity * 10)
@@ -78,6 +92,7 @@ func bowLogic(delta : float):
 		arrow.position += look_vector3 * arrow.size
 		animationPlayer.play("ranged_weapon_fire")
 		
+		drawingAnim.stop()
 		timePassed = 0
 		drawingBow = false
 		started = false
@@ -88,6 +103,7 @@ func gunLogic():
 	var look_dir = playerController.getLookDir()
 	var look_vector3 = Vector3(sin(look_dir.x), sin(-look_dir.y - PI / 72), -cos(look_dir.x))
 	
+	bullet.damage = currentObject.damage
 	bullet.linear_velocity = currentObject.projectile_speed * look_vector3
 	bullet.look_at_from_position(global_position, bullet.linear_velocity * 10)
 	bullet.position = global_position

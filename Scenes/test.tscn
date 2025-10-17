@@ -1,8 +1,11 @@
-[gd_scene load_steps=29 format=3 uid="uid://cjm2s50wuk2mt"]
+[gd_scene load_steps=31 format=3 uid="uid://cjm2s50wuk2mt"]
 
 [ext_resource type="PackedScene" uid="uid://bmtin1einpkqv" path="res://Scenes/player.tscn" id="1_lc1oi"]
 [ext_resource type="PackedScene" uid="uid://ba1mnt4l1neuu" path="res://Prefabs/Items/sword.tscn" id="2_8od7v"]
+[ext_resource type="PackedScene" uid="uid://wyw4g82twwoa" path="res://Prefabs/Geometry/plane.tscn" id="2_aees8"]
+[ext_resource type="PackedScene" uid="uid://dw37scpjjriq" path="res://Prefabs/Geometry/wall.tscn" id="3_mie3u"]
 [ext_resource type="PackedScene" uid="uid://bjhroqng3y8ud" path="res://Prefabs/Scenary/box.tscn" id="3_qc4db"]
+[ext_resource type="PackedScene" uid="uid://c04gfls7rd6pw" path="res://Prefabs/Scenary/castle_tower.tscn" id="4_mie3u"]
 [ext_resource type="PackedScene" uid="uid://5klua6lb6kkp" path="res://Prefabs/Scenary/door.tscn" id="4_ys1qc"]
 [ext_resource type="PackedScene" uid="uid://ckbefmsddghpg" path="res://Prefabs/Scenary/button.tscn" id="5_35xla"]
 [ext_resource type="PackedScene" uid="uid://bfjstqt3ybi2i" path="res://Prefabs/Scenary/letter.tscn" id="6_i3aeo"]
@@ -10,12 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://b7ikesuulnwkl" path="res://Prefabs/Items/needle.tscn" id="7_5wyu1"]
 [ext_resource type="PackedScene" uid="uid://brhqqwvhk4xyj" path="res://Prefabs/Items/pistol.tscn" id="8_0c07c"]
 [ext_resource type="PackedScene" uid="uid://bu2p08qc75e2i" path="res://Prefabs/Scenary/target.tscn" id="10_iaow0"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_o3qbn"]
-size = Vector3(40, 0.25, 40)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_lc1oi"]
-size = Vector2(40, 40)
+[ext_resource type="PackedScene" uid="uid://bufu8fatk1adu" path="res://Prefabs/Enemies/Enemy.tscn" id="11_qpfo2"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_lc1oi"]
 size = Vector3(30, 10, 1)
@@ -96,25 +94,11 @@ directional_shadow_pancake_size = 0.0
 [node name="Geometry" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 20, 5, -10)
 
-[node name="Plane" type="StaticBody3D" parent="Geometry"]
+[node name="Plane" parent="Geometry" instance=ExtResource("2_aees8")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, -5, 20)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Plane"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.125, 0)
-shape = SubResource("BoxShape3D_o3qbn")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Plane"]
-mesh = SubResource("PlaneMesh_lc1oi")
-
-[node name="Wall" type="StaticBody3D" parent="Geometry"]
+[node name="Wall" parent="Geometry" instance=ExtResource("3_mie3u")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10, 0, 15)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Wall"]
-mesh = SubResource("BoxMesh_lc1oi")
-skeleton = NodePath("../../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Wall"]
-shape = SubResource("BoxShape3D_lc1oi")
 
 [node name="Wall2" type="StaticBody3D" parent="Geometry"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
@@ -276,6 +260,9 @@ mesh = SubResource("BoxMesh_8od7v")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Platforms/Platform6"]
 shape = SubResource("BoxShape3D_qc4db")
 
+[node name="CastleTower" parent="Geometry" instance=ExtResource("4_mie3u")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 34.5885, -3.64826, 30.8033)
+
 [node name="Dynamic Objects" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.20709, 2.22433, -3.1492)
 
@@ -308,4 +295,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.00618, -0.89908, -5.06658)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.96142, -1.57188, -5.61403)
 
 [node name="Target" parent="Dynamic Objects" instance=ExtResource("10_iaow0")]
-transform = Transform3D(0.707107, 0.664463, 0.241845, 0, 0.34202, -0.939692, -0.707107, 0.664463, 0.241845, -10.0763, 0.292727, -13.5578)
+transform = Transform3D(0.707107, 0.664463, 0.241845, 0, 0.34202, -0.939692, -0.707107, 0.664463, 0.241845, -21.4532, 4.06128, -13.5578)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("11_qpfo2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.9494, 6.89221, 0)
+collision_layer = 9

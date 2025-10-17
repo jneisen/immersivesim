@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnb3w4d33mxoo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u0x8o"]
+albedo_color = Color(1, 0, 0, 1)
+metallic = 0.6
+
+[sub_resource type="SphereMesh" id="SphereMesh_u0x8o"]
+material = SubResource("StandardMaterial3D_u0x8o")
+radius = 0.1
+height = 0.2
+radial_segments = 8
+rings = 8
+
+[node name="BloodParticle" type="CPUParticles3D"]
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 0.42
+lifetime_randomness = 0.3
+mesh = SubResource("SphereMesh_u0x8o")
+emission_shape = 1
+emission_sphere_radius = 1.0
+emission_colors = PackedColorArray(1, 0, 0, 1)
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+color = Color(1, 0, 0, 1)

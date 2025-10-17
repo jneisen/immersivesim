@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://bufu8fatk1adu"]
+
+[ext_resource type="Script" uid="uid://bdg6x8dau0p1u" path="res://Scripts/Enemies/enemy.gd" id="1_il7oh"]
+[ext_resource type="PackedScene" uid="uid://dwj8rohqk07xp" path="res://Models/Enemies/enemy.blend" id="2_dn3dq"]
+[ext_resource type="PackedScene" uid="uid://cnb3w4d33mxoo" path="res://Misc/Particles/Blood Particle.tscn" id="2_mln43"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mln43"]
+size = Vector3(0.588043, 1.61945, 1.02087)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nk555"]
+size = Vector3(1.42186, 4.66949, 1.01862)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hd0fw"]
+size = Vector3(1, 1.28613, 0.622498)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k26oo"]
+size = Vector3(2.31726, 1, 0.956055)
+
+[node name="Enemy" type="RigidBody3D"]
+script = ExtResource("1_il7oh")
+blood_particle = ExtResource("2_mln43")
+
+[node name="enemy" parent="." instance=ExtResource("2_dn3dq")]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.34181, -0.309723, -0.0303345)
+shape = SubResource("BoxShape3D_mln43")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3341, -0.309723, -0.0303345)
+shape = SubResource("BoxShape3D_mln43")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.998889, 0.0471239, 0, -0.0471239, 0.998889, 0.00478363, -1.53584, 0.0589628)
+shape = SubResource("BoxShape3D_nk555")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42287, -0.0174255)
+shape = SubResource("BoxShape3D_hd0fw")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0375366, 0.212579, -0.0219727)
+shape = SubResource("BoxShape3D_k26oo")

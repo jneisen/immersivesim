@@ -10,5 +10,5 @@ func setName(m_item_name : String):
 	model = get_model()
 
 func get_model() -> PackedScene:
-	var string = "res://Models/Items/" + item_name + ".glb"
+	var string = "res://Models/Items/Blend/" + item_name + ".blend"
 	return load(string)
