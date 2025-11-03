@@ -24,6 +24,11 @@ const SQRTOFTWO = 1.4142
 
 var disabledInput : bool = false
 
+var climbingLadder : bool = false
+var ladderPos : Vector3 = Vector3.ZERO
+var ladderDir : Vector3 = Vector3.ZERO
+var ladderSpeed = 2
+
 var forward : bool = false
 var left : bool = false
 var right : bool = false
@@ -103,16 +108,14 @@ func hotbarInput():
 
 func _physics_process(_delta: float) -> void:
 	basicMovement()
+	if(climbingLadder):
+		ladderMovement()
 	
 	handleRaycast()
 	
 	rotation = Vector3(0, -look_dir.x, 0)
 	camera.rotation = Vector3(-look_dir.y, 0, 0)
 	move_and_slide()
-	for i in get_slide_collision_count():
-		var c = get_slide_collision(i)
-		if(c.get_collider() == RigidBody3D && c.get_collider().collision_layer & 2 > 0):
-			c.get_collider().apply_central_impulse(-c.get_normal()*1)
 
 func basicMovement():
 	var airCoefficient = 1
@@ -147,6 +150,23 @@ func basicMovement():
 	if(velocityxz.length() > speed * SQRTOFTWO):
 		velocityxz = (velocityxz.normalized() * speed)
 		velocity = Vector3(velocityxz.x, velocity.y, velocityxz.y)
+		
+func ladderMovement():
+	var tryingToMove = Vector2.ZERO
+	if(forward):
+		tryingToMove += acceleration * Vector2(sin(look_dir.x), -cos(look_dir.x))
+	if(left):
+		tryingToMove += acceleration * Vector2(-cos(look_dir.x), -sin(look_dir.x))
+	if(right):
+		tryingToMove += acceleration * Vector2(cos(look_dir.x), sin(look_dir.x))
+	if(backward):
+		tryingToMove += acceleration * Vector2(-sin(look_dir.x), cos(look_dir.x))
+	var difference = ladderPos * ladderDir - position * ladderDir
+	var dotProduct = tryingToMove.x * difference.x + tryingToMove.y * difference.z
+	if(dotProduct > 0.5):
+		velocity.y = ladderSpeed * 2
+	else:
+		velocity.y = -ladderSpeed
 
 func handleRaycast():
 	if(heldObject):
